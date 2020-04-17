@@ -78,6 +78,35 @@ body {
 	}
 	
 </style>
+<script>
+			async function getAgreeCount() {
+				fetch( 'https://6x7jsnuugd.execute-api.us-east-1.amazonaws.com/Prod/ReadPageLikes',  {
+					method: 'GET'
+				})
+				.then(response => response.json())
+				.then((response) => {
+					console.log(response);
+					document.getElementById("count").innerHTML = response.body.Count;
+				});
+			}
+			
+			async function agree() {
+				fetch( 'https://6x7jsnuugd.execute-api.us-east-1.amazonaws.com/Prod/PageLikes',  {
+					method: 'POST'
+				})
+				.then(response => response.json())
+				.then((response) => {
+					console.log(response);
+					document.getElementById("agree").disabled = true;
+					getAgreeCount();
+				});
+			}
+			window.onload = getAgreeCount();
+		
+			function refreshPage() {
+				window.location.reload();
+			}
+			</script>
 </head>
 
 <body>
@@ -101,7 +130,7 @@ body {
 		</video>
 		<p>Here at Chris Gardens, we strive to provide a sanctuary for the birds, the bees, and the butterflies! Click on any of our links to learn more!</p>
 		<p></p>
-		<p>We grow all kinds of things here at Chris Gardens. There are flowering beauties like Italian Ice Roses, Lantanas, Azaleas and Crepe Myrtles. We also grow fruits like pineapple and strawberries! On the aquatic side, we have 4 pristine tanks growing not only beautiful plants, but also shrimp and fish.</p>
+		<p>We grow all kinds of things here at Chris Gardens. There are flowering beauties like Italian Ice Roses, Lantanas, Azaleas and Crepe Myrtles. We also grow fruits like pineapple and strawberries!</p>
 	</div>
 	
 	<div class = "display">
@@ -116,6 +145,10 @@ body {
 		<a href="http://www.instagram.com/cutelilflowerboy">
 			<img src="https://chrisbwbucket.s3.amazonaws.com/S3Bucket/Assets/Pictures/instagramlogo.png" alt="Instagram Logo" height="100px" width="100px">
 		</a>
+		<p></p>
+		<p>Like My Page!</p>
+				<p><span id="count"></span> people have already!</p>
+				<input type="image" width="75px" height="75px" src="https://chrisbwbucket.s3.amazonaws.com/S3Bucket/Assets/Pictures/like.png" name="like" id="agree" class="btn"  onclick="agree();refreshPage();"></input>
 	</div>
 </body>
 
